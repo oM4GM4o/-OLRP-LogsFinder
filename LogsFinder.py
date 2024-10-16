@@ -166,7 +166,7 @@ def main():
             elif mode == 3:
                 getKills(txtfiles, input("Entrez le nom d'un personnage ou d'un NPC: "), outMode());
             elif mode == 4:
-                getStats(txtfiles, input("Entrez le nom d'un personnage ou d'un NPC: "), outMode());
+                getStats(txtfiles, input("Entrez le nom d'un personnage ou d'un NPC: "), 0);
             elif mode == 6:
                 getActivity(txtfiles, input("Entrez l'identifiant ou le nom d'un item ou d'un stockage: "), outMode());
             elif mode == 5:
