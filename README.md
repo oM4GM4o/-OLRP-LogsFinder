@@ -19,3 +19,9 @@ En cas de problèmes ou d'idées d'amélioration, contactez moi sur discord: m4g
 6. Choisissez le mode de sortie des résultats (crée un fichier texte dans le dossier "output/" en mode 1)
 
 7. Si vous avez terminé, fermez la fenêtre
+
+### Commentaires
+
+Il est possible que certaines recherches soient plus lentes que d'autres (selon le type de recherche et la quantité de logs)
+
+Il est nécessaire d'entrer le nom et prénom d'un personnage exactement comme il est écrit
