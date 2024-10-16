@@ -126,11 +126,14 @@ def getFiles():
         txtfiles.append(file)
 
 def getStats(fichiers, player, printmode):
-    morts = getMorts(txtfiles, player, 1);
-    kills = getKills(txtfiles, player, 1);
-    KDR = round(kills/morts, 2);
+    morts = getMorts(txtfiles, player, 2);
+    kills = getKills(txtfiles, player, 2);
+    if kills != 0:
+        KDR = round(kills/morts, 2);
+    else: 
+        KDR = 0.0;
     print('|--------------------------------------------------------------------------\n'
-          '|Statistiques de ' + player + ' sur les 18 derniers jours:\n'
+          '|Statistiques de ' + player + ' dans les fichiers log:\n'
           '|--------------------------------------------------------------------------\n'
           '|Kills : ' + str(kills) + '\t\t Morts : ' + str(morts) + '\t\tKDR : ' + str(KDR)+ '\n'
           );
