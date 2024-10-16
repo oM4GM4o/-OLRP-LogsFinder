@@ -126,7 +126,7 @@ def getFiles():
         txtfiles.append(file)
 
 def getStats(fichiers, player, printmode):
-    morts = getDeath(txtfiles, player, 1);
+    morts = getMorts(txtfiles, player, 1);
     kills = getKills(txtfiles, player, 1);
     KDR = round(kills/morts, 2);
     print('|--------------------------------------------------------------------------\n'
