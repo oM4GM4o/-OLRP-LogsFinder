@@ -14,7 +14,7 @@ def getDamage(fichiers, player, printmode):
     damage = []
     damagecount = 0;
     player.replace('.','[.]*')
-    stringt = '(((' + player + ').* has taken)|(has taken .*('+ player + ')))|(((' + player + ').* has dealt)|(has dealt .*('+ player + ')))';
+    stringt = '((' + player + ').* has taken)|(has taken .*('+ player + '))|((' + player + ').* has dealt)|(has dealt .*('+ player + '))';
     searchstring = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
@@ -128,14 +128,16 @@ def getFiles():
 def getStats(fichiers, player, printmode):
     morts = getMorts(txtfiles, player, 2);
     kills = getKills(txtfiles, player, 2);
+    messages = getMessages(txtfiles, player, 2);
     if kills != 0:
         KDR = round(kills/morts, 2);
-    else: 
+    else:
         KDR = 0.0;
     print('|--------------------------------------------------------------------------\n'
           '|Statistiques de ' + player + ' dans les fichiers log:\n'
           '|--------------------------------------------------------------------------\n'
           '|Kills : ' + str(kills) + '\t\t Morts : ' + str(morts) + '\t\tKDR : ' + str(KDR)+ '\n'
+          '|Messages: ' + str(messages)
           );
 
 def outMode():
