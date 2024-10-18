@@ -25,3 +25,7 @@ En cas de problèmes ou d'idées d'amélioration, contactez moi sur discord: m4g
 Il est possible que certaines recherches soient plus lentes que d'autres (selon le type de recherche et la quantité de logs)
 
 Il est nécessaire d'entrer le nom et prénom d'un personnage exactement comme il est écrit
+
+### Téléchargement
+
+[Télécharger](https://github.com/oM4GM4o/-OLRP-LogsFinder/archive/refs/heads/main.zip)
