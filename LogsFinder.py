@@ -7,22 +7,22 @@ now = datetime.now()
 
 PATHLOGS = "logs/"
 PATHOUT = "output/"
-
 txtfiles = []
 
 def getDamage(fichiers, player, printmode):
     damage = []
     damagecount = 0;
     player.replace('.','[.]*')
-    stringt = '((' + player + ').* has taken)|(has taken .*('+ player + '))|((' + player + ').* has dealt)|(has dealt .*('+ player + '))';
-    searchstring = re.compile(stringt);
+    stringt = '(' + player + '.* has taken)|(has taken .*'+ player + ')|(' + player + '.* has dealt)|(has dealt .*'+ player + ')';
+    searchdamage = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
             for line in file:
-                if searchstring.search(line):
+                if searchdamage.search(line):
                     damagecount += 1;
                     line = line.strip();
                     damage.append(re.sub('.log', '', re.sub('logs\\\\', '', filename)) + ' | '+ line);
+        file.close();
     if printmode == 0:
         printLines(damage);
         print('|--------------------------------------------------------------------------\n' +
@@ -36,14 +36,15 @@ def getMessages(fichiers, player, printmode):
     messagecount = 0;
     player.replace('.','[.]*')
     stringt = '('+ player + '.*/PM)|(OOC.*' + player + ')|('+ player + '.*says)|('+ player + '.*/A )';
-    searchstring = re.compile(stringt);
+    searchmessages = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
             for line in file:
-                if searchstring.search(line):
+                if searchmessages.search(line):
                     messagecount += 1;
                     line = line.strip();
                     messages.append(re.sub('.log', '', re.sub('logs\\\\', '', filename)) + ' | '+ line);
+            file.close();
     if printmode == 0:
         printLines(messages);
         print('|--------------------------------------------------------------------------\n' +
@@ -58,14 +59,15 @@ def getKills(fichiers, player, printmode):
     killcount = 0;
     player.replace('.','[.]*')
     stringt = player + ' has dealt .*, killing them!';
-    searchstring = re.compile(stringt);
+    searchkills = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
             for line in file:
-                if searchstring.search(line):
+                if searchkills.search(line):
                     killcount += 1;
                     line = line.strip();
                     kill.append(re.sub('.log', '', re.sub('logs\\\\', '', filename)) + ' | '+ line);
+            file.close();
     if printmode == 0:
         printLines(kill);
         print('|--------------------------------------------------------------------------\n' +
@@ -76,30 +78,38 @@ def getKills(fichiers, player, printmode):
 
 def getActivity(fichiers, player, printmode):
     activity = []
+    activitycount = 0;
+    player.replace('.','[.]*')
+    stringt = player;
+    searchactivity = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
             for line in file:
-                if line.find(player) != -1:
+                if searchactivity.search(line):
+                    activitycount += 1;
                     line = line.strip();
                     activity.append(re.sub('.log', '', re.sub('logs\\\\', '', filename)) + ' | '+ line);
+            file.close();
     if printmode == 0:
         printLines(activity);
     elif printmode == 1:
         printFile(activity, player, 'activite');
+    return activitycount;
 
 def getMorts(fichiers, player, printmode):
     death = []
     deathcount = 0;
     player.replace('.','[.]*')
     stringt = 'to ' + player + '.*, killing them!';
-    searchstring = re.compile(stringt);
+    searchdeaths = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
             for line in file:
-                if searchstring.search(line):
+                if searchdeaths.search(line):
                     deathcount += 1;
                     line = line.strip();
                     death.append(re.sub('.log', '', re.sub('logs\\\\', '', filename)) + ' | '+ line);
+            file.close();
     if printmode == 0:
         printLines(death);
         print('|--------------------------------------------------------------------------\n' +
@@ -118,8 +128,8 @@ def printFile(liste, value, name):
 
 def printLines(liste):
     print('|--------------------------------------------------------------------------\n')
-    for line in liste:
-        print('|' + line);
+    for ligne in liste:
+        print('|' + ligne);
 
 def getFiles():
     for file in glob.glob(PATHLOGS + "*.log"):
@@ -143,24 +153,24 @@ def getStats(fichiers, player, printmode):
 def outMode():
     while 1==1:
         entryoutputmode = input('Mode de sortie: 0 - Console | 1 - Fichier (dossier /output): ');
-        if re.search('[0-1]', entryoutputmode):
+        if re.fullmatch('[0-1]', entryoutputmode):
             outputmode = int(entryoutputmode)
             return outputmode
             break;
         else:
             print('|--------------------------------------------------------------------------\n' +
-                  '|Entrez une valeur valide');
+                  '|Entrez une valeur valide (0 - 1)');
 
 def main():
+    getFiles();
     while 1==1:
         entry = '';
         mode = 0;
         entry = input('|--------------------------------------------------------------------------\n' +
               '|Choisir le mode de recherche:\n| 1 - Activité | 2 - Mort | 3 - Kill | 4 - Statistiques | 5 - Messages | 6 - Item/Stockage/ID | 7 - Dégats\n');
-        if re.search('[1-7]', entry):
+        if re.fullmatch('[1-7]', entry):
             mode = int(entry);
         if mode != 0:
-            getFiles();
             if mode == 1:
                 getActivity(txtfiles, input("Entrez le nom d'un personnage ou d'un NPC: "), outMode());
             elif mode == 2:
@@ -177,7 +187,7 @@ def main():
                 getDamage(txtfiles, input("Entrez le nom d'un personnage ou d'un NPC: "), outMode());
         elif mode == 0:
             print('|--------------------------------------------------------------------------\n' +
-                  '|Entrez une valeur valide');
+                  '|Entrez une valeur valide (0 - 7)');
 
 if __name__ == '__main__':
     main()
