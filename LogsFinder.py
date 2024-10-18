@@ -35,7 +35,7 @@ def getMessages(fichiers, player, printmode):
     messages = []
     messagecount = 0;
     player.replace('.','[.]*')
-    stringt = '('+ player + '.*/PM)|(OOC.*' + player + ')|('+ player + '.*says)|('+ player + '.*/A )';
+    stringt = '('+ player + '.*/PM)|(OOC.*' + player + ')|('+ player + '.*says)|('+ player + '.*/A )|(' + player + '.*/Radio )';
     searchmessages = re.compile(stringt);
     for filename in fichiers:
         with open(filename, encoding="utf8") as file:
@@ -139,7 +139,7 @@ def getStats(fichiers, player, printmode):
     morts = getMorts(txtfiles, player, 2);
     kills = getKills(txtfiles, player, 2);
     messages = getMessages(txtfiles, player, 2);
-    if kills != 0:
+    if kills != 0 && morts != 0:
         KDR = round(kills/morts, 2);
     else:
         KDR = 0.0;
