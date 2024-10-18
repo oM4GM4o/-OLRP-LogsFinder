@@ -136,10 +136,10 @@ def getFiles():
         txtfiles.append(file)
 
 def getStats(fichiers, player, printmode):
-    morts = getMorts(txtfiles, player, 2);
-    kills = getKills(txtfiles, player, 2);
+    morts = float(getMorts(txtfiles, player, 2));
+    kills = float(getKills(txtfiles, player, 2));
     messages = getMessages(txtfiles, player, 2);
-    if kills != 0 && morts != 0:
+    if (kills != 0.0 and morts != 0.0):
         KDR = round(kills/morts, 2);
     else:
         KDR = 0.0;
