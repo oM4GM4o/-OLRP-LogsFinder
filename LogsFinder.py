@@ -119,7 +119,7 @@ def getMorts(fichiers, player, printmode):
     return deathcount;
 
 def printFile(liste, value, name):
-    fname = PATHOUT + name + "_" + str(value) + "_" + now.strftime("%d-%m-%Y_%Hh-%Mm-%Ss") + ".txt";
+    fname = PATHOUT + name + "_" + str(value) + "_" + now.strftime("%d-%m-%Y_%H-%M-%S") + ".txt";
     file = open(fname, "a")
     for line in liste:
         file.write(line + '\n');
