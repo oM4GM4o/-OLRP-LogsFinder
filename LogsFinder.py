@@ -13,6 +13,7 @@ def getDamage(fichiers, player, printmode):
     damage = []
     damagecount = 0;
     player.replace('.','[.]*')
+    player.replace('-','[-]*')
     stringt = '(' + player + '.* has taken)|(has taken .*'+ player + ')|(' + player + '.* has dealt)|(has dealt .*'+ player + ')';
     searchdamage = re.compile(stringt);
     for filename in fichiers:
@@ -35,6 +36,7 @@ def getMessages(fichiers, player, printmode):
     messages = []
     messagecount = 0;
     player.replace('.','[.]*')
+    player.replace('-','[-]*')
     stringt = '('+ player + '.*/PM)|(OOC.*' + player + ')|('+ player + '.*says)|('+ player + '.*/A )|(' + player + '.*/Radio )';
     searchmessages = re.compile(stringt);
     for filename in fichiers:
@@ -58,6 +60,7 @@ def getKills(fichiers, player, printmode):
     kill = []
     killcount = 0;
     player.replace('.','[.]*')
+    player.replace('-','[-]*')
     stringt = player + ' has dealt .*, killing them!';
     searchkills = re.compile(stringt);
     for filename in fichiers:
@@ -80,6 +83,7 @@ def getActivity(fichiers, player, printmode):
     activity = []
     activitycount = 0;
     player.replace('.','[.]*')
+    player.replace('-','[-]*')
     stringt = player;
     searchactivity = re.compile(stringt);
     for filename in fichiers:
@@ -100,6 +104,7 @@ def getMorts(fichiers, player, printmode):
     death = []
     deathcount = 0;
     player.replace('.','[.]*')
+    player.replace('-','[-]*')
     stringt = 'to ' + player + '.*, killing them!';
     searchdeaths = re.compile(stringt);
     for filename in fichiers:
